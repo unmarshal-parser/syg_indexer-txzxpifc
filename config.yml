@@ -1,0 +1,106 @@
+database_type: postgres
+contract_type: regular
+abi:
+  path: contract.abi
+  events:
+  - name: SwapTargetAdded
+  - name: SwapTargetRemoved
+  - name: TokenWithdrawn
+    fields:
+    - name: amount
+      type: uint256
+      plugins:
+      - name: token_column
+        inputs:
+          field_name: token
+  - name: EthWithdrawn
+    fields:
+    - name: amount
+      type: uint256
+      plugins:
+      - name: token
+        inputs:
+          contract_address: 0x00000000009726632680FB29d3F7A9734E3010E2
+  methods:
+  - name: fillQuoteEthToToken
+    fields:
+    - name: feeAmount
+      type: uint256
+      plugins:
+      - name: token
+        inputs:
+          contract_address: 0x00000000009726632680FB29d3F7A9734E3010E2
+  - name: fillQuoteTokenToEthWithPermit
+    fields:
+    - name: feePercentageBasisPoints
+      type: uint256
+      plugins:
+      - name: token
+        inputs:
+          contract_address: 0x00000000009726632680FB29d3F7A9734E3010E2
+    - name: sellAmount
+      type: uint256
+      plugins:
+      - name: token_column
+        inputs:
+          field_name: sellTokenAddress
+  - name: fillQuoteTokenToToken
+    fields:
+    - name: sellAmount
+      type: uint256
+      plugins:
+      - name: token_column
+        inputs:
+          field_name: sellTokenAddress
+    - name: feeAmount
+      type: uint256
+      plugins:
+      - name: token_column
+        inputs:
+          field_name: sellTokenAddress
+  - name: fillQuoteTokenToTokenWithPermit
+    fields:
+    - name: sellAmount
+      type: uint256
+      plugins:
+      - name: token_column
+        inputs:
+          field_name: sellTokenAddress
+    - name: feeAmount
+      type: uint256
+      plugins:
+      - name: token_column
+        inputs:
+          field_name: sellTokenAddress
+  - name: fillQuoteTokenToEth
+    fields:
+    - name: feePercentageBasisPoints
+      type: uint256
+      plugins:
+      - name: token
+        inputs:
+          contract_address: 0x00000000009726632680FB29d3F7A9734E3010E2
+    - name: sellAmount
+      type: uint256
+      plugins:
+      - name: token_column
+        inputs:
+          field_name: sellTokenAddress
+  - name: transferOwnership
+  - name: updateSwapTargets
+  - name: withdrawEth
+    fields:
+    - name: amount
+      type: uint256
+      plugins:
+      - name: token
+        inputs:
+          contract_address: 0x00000000009726632680FB29d3F7A9734E3010E2
+  - name: withdrawToken
+    fields:
+    - name: amount
+      type: uint256
+      plugins:
+      - name: token_column
+        inputs:
+          field_name: token
